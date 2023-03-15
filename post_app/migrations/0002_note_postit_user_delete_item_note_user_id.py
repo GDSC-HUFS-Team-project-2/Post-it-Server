@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0001_initial'),
+        ('post_app', '0001_initial'),
     ]
 
     operations = [
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('anonymous', models.BooleanField()),
                 ('writer', models.CharField(max_length=20)),
                 ('content_text', models.TextField()),
-                ('note_id', models.ForeignKey(db_column='note_id', on_delete=django.db.models.deletion.CASCADE, related_name='note', to='myapp.note')),
+                ('note_id', models.ForeignKey(db_column='note_id', on_delete=django.db.models.deletion.CASCADE, related_name='note', to='post_app.note')),
             ],
         ),
         migrations.CreateModel(
@@ -43,6 +43,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='note',
             name='user_id',
-            field=models.ForeignKey(db_column='user_id', on_delete=django.db.models.deletion.CASCADE, related_name='user', to='myapp.user'),
+            field=models.ForeignKey(db_column='user_id', on_delete=django.db.models.deletion.CASCADE, related_name='user', to='post_app.user'),
         ),
     ]
