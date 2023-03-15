@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    This is note_edit.html
+    <form method="POST" action="{% url 'note_edit' user_id=user_id %}">
+        {% csrf_token %}
+        <label for="user_name">User Name:</label>
+        <input type="text" id="user_name" name="user_name"><br><br>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description"><br><br>
+        <input type="submit" value="Submit">
+      </form>
+</body>
+</html>
