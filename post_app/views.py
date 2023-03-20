@@ -31,21 +31,21 @@ def signup(request):
             # return render(request, 'realTaecho.html')
             return JsonResponse({"status": "success"})
 
-# def login(request):
-#     if request.method == 'POST':
-#         user_email = request.POST['user_email']
-#         user_pw = request.POST['user_pw']
-#         user = authenticate(request, username=username, password=password)
+def login(request):
+    if request.method == "GET":
+        return render(request, 'index.html')
+    elif request.method == "POST":
+        user_email = request.POST.get("user_email")
+        user_pw = request.POST.get("user_pw")
 
-#         if user is not None:
-#             login(request, user)
-#             return redirect('note', id=user.id)
-#         else:
-#             error_message = "Invalid email or password."
-#             return render(request, 'login.html', {'error_message', error_message})
-
-#     else:
-#         return render(request, 'login.html')
+        if User.objects.filter(user_email=user_email).exists():
+            user = User.objects.get(user_email=user_email)
+            if user.user_pw == user_pw:
+                return JsonResponse({"status": "success", "user_id": user.user_id})
+            else:
+                return JsonResponse({"status": "wrong password"})
+        else:
+            return JsonResponse({"status": "email does not exists"})
 
 @csrf_exempt
 def make_note(request, user_id):
@@ -84,9 +84,9 @@ def edit_note(request, user_id):
     else: #method == "GET"
         if Note.objects.filter(user_id=user_id).exists():
             try:
-                return render(request, 'note_edit.html', {'user_id': user_id})
+                # return render(request, 'note_edit.html', {'user_id': user_id})
                 # note = Note.objects.get(user_id=user_id)
-                # return JsonResponse({"status": "success", "user_name": note.user_name, "description": note.description})
+                return JsonResponse({"status": "success", "user_name": note.user_name, "description": note.description})
             except:
                 return JsonResponse({"status": "error"})
         else:
